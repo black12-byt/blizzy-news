@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blizzy News Article</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+<h1>BLIZZY <span>NEWS</span></h1>
+<a href="index.html" style="color:white">Home</a>
+</header>
+
+<main id="content"></main>
+
+<script src="articles.js"></script>
+<script>
+const id = new URLSearchParams(location.search).get("id");
+const article = ARTICLES.find(a =>
+  a.id === id && a.published
+);
+
+const content = document.getElementById("content");
+
+if(article) {
+  document.title = article.title + " | Blizzy News";
+  content.innerHTML = `
+    <small>${article.category} • ${article.date}</small>
+    <h1>${article.title}</h1>
+    <p>${article.excerpt}</p>
+    <hr>
+    ${article.body.map(p => `<p style="margin:20px 0;line-height:1.8">${p}</p>`).join("")}
+  `;
+} else {
+  content.innerHTML = "<h2>Article not found</h2>";
+}
+</script>
+
+</body>
+</html>
