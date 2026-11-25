@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLIZZY NEWS | Latest Headlines</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <h1>BLIZZY <span>NEWS</span></h1>
+  <p>INFORM • EDUCATE • ENTERTAIN</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#latest">Latest News</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Stories that keep you informed.</h2>
+  <p>Your trusted source for the latest news and updates.</p>
+</section>
+
+<main>
+  <h2 id="latest">Latest Articles</h2>
+  <input id="search" placeholder="Search articles...">
+  <div id="articles"></div>
+</main>
+
+<footer>
+  <h2>BLIZZY NEWS</h2>
+  <p>© 2026 Blizzy News. All rights reserved.</p>
+</footer>
+
+<script src="articles.js"></script>
+<script>
+const container = document.getElementById("articles");
+
+function displayArticles(search = "") {
+  const results = ARTICLES.filter(article =>
+    article.published &&
+    (article.title + article.excerpt + article.category)
+      .toLowerCase().includes(search.toLowerCase())
+  );
+
+  container.innerHTML = results.map(article => `
+    <article class="article">
+      <small>${article.category} • ${article.date}</small>
+      <h3>${article.title}</h3>
+      <p>${article.excerpt}</p>
+      <a href="article.html?id=${article.id}">Read Full Article →</a>
+    </article>
+  `).join("") || "<p>No articles found.</p>";
+}
+
+document.getElementById("search").addEventListener("input", e => {
+  displayArticles(e.target.value);
+});
+
+displayArticles();
+</script>
+
+</body>
+</html>
